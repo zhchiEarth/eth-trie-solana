@@ -6,7 +6,7 @@
 
 Rust implementation of the Merkle-Patricia Trie, used by Ethereum.
 
-The implementation is forked from [CITA-trie](https://github.com/citahub/cita-trie), which was
+The implementation is forked from [eth-trie.rs](https://github.com/carver/eth-trie.rs), which was
 strongly inspired by [go-ethereum trie](https://github.com/ethereum/go-ethereum/tree/master/trie).
 
 ## Features

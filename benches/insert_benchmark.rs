@@ -4,8 +4,8 @@ use criterion::{criterion_group, criterion_main, Criterion};
 
 use uuid::Uuid;
 
-use eth_trie::MemoryDB;
-use eth_trie::{EthTrie, Trie};
+use eth_trie_solana::MemoryDB;
+use eth_trie_solana::{EthTrie, Trie};
 
 fn insert_worse_case_benchmark(c: &mut Criterion) {
     c.bench_function("eth-trie insert one", |b| {

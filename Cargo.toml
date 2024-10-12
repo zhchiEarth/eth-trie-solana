@@ -1,15 +1,14 @@
 [package]
-name = "eth_trie"
-version = "0.4.0"
-authors = ["Jason Carver <ut96caarrs@snkmail.com>"]
+name = "eth_trie_solana"
+version = "0.1.0"
 description = "Ethereum-compatible Merkle-Patricia Trie."
 license = "Apache-2.0"
 edition = "2018"
 readme = "README.md"
-keywords = ["patricia", "mpt", "evm", "trie", "ethereum"]
-repository = "https://github.com/carver/eth-trie.rs"
-homepage = "https://github.com/carver/eth-trie.rs"
-documentation = "https://docs.rs/eth_trie"
+keywords = ["patricia", "mpt", "evm", "trie", "solana"]
+repository = "https://github.com/zhchiEarth/eth-trie-solana"
+homepage = "https://github.com/zhchiEarth/eth-trie-solana"
+documentation = "https://docs.rs/eth_trie_solana"
 
 [dependencies]
 ethereum-types = "0.14.1"
