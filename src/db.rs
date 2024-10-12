@@ -1,8 +1,6 @@
 use std::collections::HashMap;
 use std::error::Error;
-use std::sync::Arc;
-
-use parking_lot::RwLock;
+use std::sync::{Arc, RwLock};
 
 use crate::errors::MemDBError;
 
@@ -67,7 +65,7 @@ impl DB for MemoryDB {
     type Error = MemDBError;
 
     fn get(&self, key: &[u8]) -> Result<Option<Vec<u8>>, Self::Error> {
-        if let Some(value) = self.storage.read().get(key) {
+        if let Some(value) = self.storage.read().unwrap().get(key) {
             Ok(Some(value.clone()))
         } else {
             Ok(None)
@@ -75,13 +73,13 @@ impl DB for MemoryDB {
     }
 
     fn insert(&self, key: &[u8], value: Vec<u8>) -> Result<(), Self::Error> {
-        self.storage.write().insert(key.to_vec(), value);
+        self.storage.write().unwrap().insert(key.to_vec(), value);
         Ok(())
     }
 
     fn remove(&self, key: &[u8]) -> Result<(), Self::Error> {
         if self.light {
-            self.storage.write().remove(key);
+            self.storage.write().unwrap().remove(key);
         }
         Ok(())
     }

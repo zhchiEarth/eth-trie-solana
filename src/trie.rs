@@ -2,9 +2,6 @@ use std::sync::{Arc, RwLock};
 
 use anchor_lang::solana_program::keccak::hash;
 use hashbrown::{HashMap, HashSet};
-// use keccak_hash::{keccak, KECCAK_NULL_RLP};
-
-use log::warn;
 use primitive_types_solana::H256;
 use rlp::{Prototype, Rlp, RlpStream};
 
@@ -184,7 +181,7 @@ where
                             match n {
                                 Some(node) => self.nodes.push(node.into()),
                                 None => {
-                                    warn!("Trie node with hash {:?} is missing from the database. Skipping...", &node_hash);
+                                    // warn!("Trie node with hash {:?} is missing from the database. Skipping...", &node_hash);
                                     continue;
                                 }
                             }
