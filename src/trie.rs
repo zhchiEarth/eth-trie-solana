@@ -1,7 +1,9 @@
 use std::sync::{Arc, RwLock};
 
+use anchor_lang::solana_program::keccak::hash;
 use hashbrown::{HashMap, HashSet};
-use keccak_hash::{keccak, KECCAK_NULL_RLP};
+// use keccak_hash::{keccak, KECCAK_NULL_RLP};
+
 use log::warn;
 use primitive_types_solana::H256;
 use rlp::{Prototype, Rlp, RlpStream};
@@ -13,6 +15,11 @@ use crate::node::{empty_children, BranchNode, Node};
 
 pub type TrieResult<T> = Result<T, TrieError>;
 const HASHED_LENGTH: usize = 32;
+/// The KECCAK of the RLP encoding of empty data.
+pub const KECCAK_NULL_RLP: H256 = H256([
+    0x56, 0xe8, 0x1f, 0x17, 0x1b, 0xcc, 0x55, 0xa6, 0xff, 0x83, 0x45, 0xe6, 0x92, 0xc0, 0xf8, 0x6e,
+    0x5b, 0x48, 0xe0, 0x1b, 0x99, 0x6c, 0xad, 0xc0, 0x01, 0x62, 0x2f, 0xb5, 0xe3, 0x63, 0xb4, 0x21,
+]);
 
 pub trait Trie<D: DB> {
     /// Returns the value for key stored in the trie.
@@ -388,7 +395,7 @@ where
     ) -> TrieResult<Option<Vec<u8>>> {
         let proof_db = Arc::new(MemoryDB::new(true));
         for node_encoded in proof.into_iter() {
-            let hash: H256 = keccak(&node_encoded).as_fixed_bytes().into();
+            let hash: H256 = hash(&node_encoded).to_bytes().into();
 
             if root_hash.eq(&hash) || node_encoded.len() >= HASHED_LENGTH {
                 proof_db.insert(hash.as_bytes(), node_encoded).unwrap();
@@ -764,7 +771,7 @@ where
         let root_hash = match self.write_node(&self.root.clone()) {
             EncodedNode::Hash(hash) => hash,
             EncodedNode::Inline(encoded) => {
-                let hash: H256 = keccak(&encoded).as_fixed_bytes().into();
+                let hash: H256 = hash(&encoded).to_bytes().into();
                 self.cache.insert(hash.as_bytes().to_vec(), encoded);
                 hash
             }
@@ -813,7 +820,7 @@ where
         if data.len() < HASHED_LENGTH {
             EncodedNode::Inline(data)
         } else {
-            let hash: H256 = keccak(&data).as_fixed_bytes().into();
+            let hash: H256 = hash(&data).to_bytes().into();
             self.cache.insert(hash.as_bytes().to_vec(), data);
 
             self.gen_keys.insert(hash.as_bytes().to_vec());
@@ -925,13 +932,13 @@ where
 
 #[cfg(test)]
 mod tests {
+    use super::KECCAK_NULL_RLP;
     use rand::distributions::Alphanumeric;
     use rand::seq::SliceRandom;
     use rand::{thread_rng, Rng};
     use std::collections::{HashMap, HashSet};
     use std::sync::Arc;
 
-    use keccak_hash::KECCAK_NULL_RLP;
     use primitive_types_solana::H256;
 
     use super::{EthTrie, Trie};
