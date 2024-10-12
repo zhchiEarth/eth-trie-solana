@@ -11,7 +11,7 @@ homepage = "https://github.com/zhchiEarth/eth-trie-solana"
 documentation = "https://docs.rs/eth_trie_solana"
 
 [dependencies]
-ethereum-types = "0.14.1"
+primitive-types-solana = "0.1.0"
 hashbrown = "0.14.0"
 keccak-hash = "0.10.0"
 log = "0.4.16"

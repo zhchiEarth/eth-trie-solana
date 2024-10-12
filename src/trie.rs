@@ -1,9 +1,9 @@
 use std::sync::{Arc, RwLock};
 
-use ethereum_types::H256;
 use hashbrown::{HashMap, HashSet};
 use keccak_hash::{keccak, KECCAK_NULL_RLP};
 use log::warn;
+use primitive_types_solana::H256;
 use rlp::{Prototype, Rlp, RlpStream};
 
 use crate::db::{MemoryDB, DB};
@@ -931,8 +931,8 @@ mod tests {
     use std::collections::{HashMap, HashSet};
     use std::sync::Arc;
 
-    use ethereum_types::H256;
     use keccak_hash::KECCAK_NULL_RLP;
+    use primitive_types_solana::H256;
 
     use super::{EthTrie, Trie};
     use crate::db::{MemoryDB, DB};
@@ -1235,9 +1235,9 @@ mod tests {
 
     #[test]
     fn test_multiple_trie_roots() {
-        let k0: ethereum_types::H256 = ethereum_types::H256::zero();
-        let k1: ethereum_types::H256 = ethereum_types::H256::random();
-        let v: ethereum_types::H256 = ethereum_types::H256::random();
+        let k0: primitive_types_solana::H256 = primitive_types_solana::H256::zero();
+        let k1: primitive_types_solana::H256 = primitive_types_solana::H256::random();
+        let v: primitive_types_solana::H256 = primitive_types_solana::H256::random();
 
         let root1 = {
             let memdb = Arc::new(MemoryDB::new(true));

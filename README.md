@@ -19,8 +19,8 @@ strongly inspired by [go-ethereum trie](https://github.com/ethereum/go-ethereum/
 ```rust
 use std::sync::Arc;
 
-use eth_trie::MemoryDB;
-use eth_trie::{EthTrie, Trie, TrieError};
+use eth_trie_solana::MemoryDB;
+use eth_trie_solana::{EthTrie, Trie, TrieError};
 
 fn main() -> Result<(), TrieError> {
     let memdb = Arc::new(MemoryDB::new(true));

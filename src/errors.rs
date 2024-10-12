@@ -1,7 +1,7 @@
 use std::error::Error;
 use std::fmt;
 
-use ethereum_types::H256;
+use primitive_types_solana::H256;
 use rlp::DecoderError;
 
 use crate::nibbles::Nibbles;

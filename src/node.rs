@@ -1,6 +1,6 @@
 use std::sync::{Arc, RwLock};
 
-use ethereum_types::H256;
+use primitive_types_solana::H256;
 
 use crate::nibbles::Nibbles;
 
